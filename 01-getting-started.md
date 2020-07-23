@@ -24,7 +24,6 @@ Before we can start the real work of building the site, we need to make sure we 
 
 - React DevTools Browser Extension for [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) or [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools). The React DevTools should "just work" when you're developing a React application. It has useful tabs for see the current props and state of components, and finds what's actually rendered. It also has a performance profiler to help track down issues if anything happens to run slowly.
 
-
 ## Create the new project
 
 The first step is to create the new React project. To do this we'll be using [`create-react-app`](https://create-react-app.dev), which is an opinionated way to structure a React application development environment.
@@ -38,7 +37,7 @@ While being opinionated means that possible options may not be available, it als
 > Note we are explicitly saying to use `npm` - if you'd prefer to use `yarn` and have it installed, you can remove that option. We are also going to [use TypeScript](https://create-react-app.dev/docs/adding-typescript), because why wouldn't you? 😉
 
 ```cmd
-npx create-react-app@latest repoll --use-npm --typescript
+npx create-react-app@latest repoll --use-npm --template typescript
 ```
 
 The [React docs](https://create-react-app.dev/docs/folder-structure) give a brief overview of the files that are generated.
