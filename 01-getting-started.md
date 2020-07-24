@@ -134,7 +134,7 @@ Now we'll update some of the existing pages to use Css Modules and Sass.
   - Update the existing css import in `src/App.tsx` to be:
 
 ```ts
-  import styles from './App.module.scss';`
+import styles from "./App.module.scss";
 ```
 
 When using modules, styles are imported and used directly, rather than specifying a "magic string". So update the `className` attributes in the `App.tsx` file like the following:
@@ -243,7 +243,7 @@ export const App: React.FC = function () {
 };
 ```
 
-- Update both `index.tsx` and `App.test.tsx` to change the App component import to `import { App } from './App';`
+- Update `index.tsx` to change the App component import to `import { App } from './views/App';`
 - In `index.tsx`, you can delete the import of `serviceWorker` and the code that uses it, as well as the `/src/serviceWorker.ts` file itself.
   - The service workers code [available by default in `create-react-app`](https://create-react-app.dev/docs/making-a-progressive-web-app/) enables effective caching of the site's static assets. The trade-offs involved with this may or may not be appropriate for your particular use case, so we're going to leave it out to keep things a little simpler.
 
@@ -263,7 +263,22 @@ src
 
 > The idea of the `views` folder is to contain the "view logic" of the application (as opposed to "data logic"). This should be **the main location for any React code** - as React is primarily a view library. In future steps we'll be adding a place for the data logic code.
 
-You should now run `npm test` to ensure the test still works, and `npm start` to make sure the app still runs. When you run up the application, you should see a very plain-looking page that just says "App".
+Create React App uses [Jest](https://jestjs.io/) as its test runner. Jest is a Node-based runner meaning that the tests always run in a Node environment and not in a real browser. The initial test that comes with Create React App looks for a Link element on the home page, but previously we removed all the elements from that page which will now cause the test to fail. To ensure the test still works, make the following changes to `App.test.tsx`:
+
+```tsx
+import React from "react";
+import { App } from "./App";
+import ReactDOM from "react-dom";
+
+test("renders without crashing", () => {
+  const div = document.createElement("div");
+  ReactDOM.render(<App />, div);
+});
+```
+
+You should now run `npm test` to ensure the test still passes.
+
+Now run up the app to ensure it runs with `npm start`. We turned off the default behaviour of opening the browser when `npm start` is run, so open your browser and navigate to `http://localhost:3000`. When you run up the application, you should see a very plain-looking page that just says "App".
 
 ## Summing Up
 
