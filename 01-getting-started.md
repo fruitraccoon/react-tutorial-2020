@@ -134,7 +134,7 @@ Now we'll update some of the existing pages to use Css Modules and Sass.
   - Update the existing css import in `src/App.tsx` to be:
 
 ```ts
-import styles from "./App.module.scss";
+import styles from './App.module.scss';
 ```
 
 When using modules, styles are imported and used directly, rather than specifying a "magic string". So update the `className` attributes in the `App.tsx` file like the following:
@@ -235,8 +235,8 @@ Make the following changes:
 - Update `App.tsx` to:
 
 ```tsx
-import React from "react";
-import styles from "./App.module.scss";
+import React from 'react';
+import styles from './App.module.scss';
 
 export const App: React.FC = function () {
   return <div className={styles.root}>App</div>;
@@ -266,12 +266,12 @@ src
 Create React App uses [Jest](https://jestjs.io/) as its test runner. Jest is a Node-based runner meaning that the tests always run in a Node environment and not in a real browser. The initial test that comes with Create React App looks for a Link element on the home page, but previously we removed all the elements from that page which will now cause the test to fail. To ensure the test still works, make the following changes to `App.test.tsx`:
 
 ```tsx
-import React from "react";
-import { App } from "./App";
-import ReactDOM from "react-dom";
+import React from 'react';
+import { App } from './App';
+import ReactDOM from 'react-dom';
 
-test("renders without crashing", () => {
-  const div = document.createElement("div");
+test('renders without crashing', () => {
+  const div = document.createElement('div');
   ReactDOM.render(<App />, div);
 });
 ```
