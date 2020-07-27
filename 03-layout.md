@@ -28,7 +28,7 @@ And finally, we need to apply the font in our `src/index.scss`. We'll apply it a
 ```css
 body {
   margin: 0;
-  font-family: ("Fira Sans", "Arial", "sans-serif");
+  font-family: ('Fira Sans', 'Arial', 'sans-serif');
 }
 ```
 
@@ -75,9 +75,9 @@ Create a new file called `views\components\application\Shell.module.scss` and ad
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-    "header nav"
-    "main main"
-    "footer footer";
+    'header nav'
+    'main main'
+    'footer footer';
 
   > .header {
     grid-area: header;
@@ -180,7 +180,7 @@ The running site should now lay out the elements a bit more sensibly, even if ev
 There are a number of goals we want to have when it comes to setting up colours on our site:
 
 1. We want consistency - a primary button on one page should be the same colour as a primary button on a different page.
-2. We don't want to having to specify explicit colours everywhere (no `#28177e` sprinkled throughout our code) so that we can change them without having to make lots of code changes.
+2. We don't want to have to specify explicit colours everywhere (no `#28177e` sprinkled throughout our code) so that we can change them without having to make lots of code changes.
 3. Our site can have different themes applied easily
 4. _Compile-time_ checking for our colour variables (because we can all make typos!)
 
@@ -364,7 +364,7 @@ Then, create a new file at `src\styles\_media.scss` with the following contents 
 
 ```scss
 // Docs: https://eduardoboucas.github.io/include-media/
-@import "node_modules/include-media/dist/include-media.scss";
+@import 'node_modules/include-media/dist/include-media.scss';
 
 // Rather than using the standard "phone" / "tablet" / etc. breakpoints, just use a generic "small"
 $breakpoints: (
