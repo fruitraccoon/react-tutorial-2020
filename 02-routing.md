@@ -2,7 +2,7 @@
 
 ## Creating some pages
 
-In order for our site to be useful, we have to have some pages that people can view and navigate between.
+In order for our site to be useful, we have to have some pages that people can view and navigate between:
 
 - At `/polls` we'll have a page to list existing Polls
 - At `/polls/create` we'll have a page to create a new Poll
@@ -15,7 +15,7 @@ To get to that point, the first thing we'll do is create some components that wi
 Create a new file at `src\views\features\polls\Polls.tsx` with the following content:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
 export const Polls: React.FC = function () {
   return <>Polls</>;
@@ -29,9 +29,9 @@ export const Polls: React.FC = function () {
 Creating a Poll is still part of the large "Polls" feature, so create a new file at `src\views\features\polls\create\CreatePoll.tsx` with the following content:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
-export const Polls: React.FC = function () {
+export const CreatePoll: React.FC = function () {
   return <>Create Poll</>;
 };
 ```
@@ -41,7 +41,7 @@ export const Polls: React.FC = function () {
 Create a new file at `src\views\features\not-found\NotFound.tsx` with the following content:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
 export const NotFound: React.FC = function () {
   return (
@@ -55,7 +55,7 @@ export const NotFound: React.FC = function () {
 
 ## Routing
 
-Now that we have some pages, let's create some routes so that we're able to view them! We are going to use [the `react-router` library](https://reacttraining.com/react-router/web/guides/quick-start) which we install from NPM.
+Now that we have some pages, let's create some routes so that we're able to view them! We are going to use the [`react-router`](https://reacttraining.com/react-router/web/guides/quick-start) library which we install from NPM.
 
 ```cmd
 npm i react-router-dom @types/react-router-dom @types/history
@@ -64,7 +64,7 @@ npm i react-router-dom @types/react-router-dom @types/history
 Create another new file at `src\views\features\Routes.tsx` and make set its contents to:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
 export const Routes: React.FC = function () {
   return <div>Routes</div>;
@@ -74,11 +74,11 @@ export const Routes: React.FC = function () {
 Update the contents of `App.tsx` to
 
 ```tsx
-import React from "react";
-import styles from "./App.module.scss";
-import { Router } from "react-router-dom";
-import { History } from "history";
-import { Routes } from "views/features/Routes";
+import React from 'react';
+import styles from './App.module.scss';
+import { Router } from 'react-router-dom';
+import { History } from 'history';
+import { Routes } from 'views/features/Routes';
 
 interface IAppProps {
   history: History;
@@ -100,7 +100,7 @@ Here we are creating a `react-router` "Router" that will allow routing to work f
 Update the `index.tsx` file with the following import:
 
 ```ts
-import { createBrowserHistory } from "history";
+import { createBrowserHistory } from 'history';
 ```
 
 and use it to create a new instance to pass to the App component
@@ -112,14 +112,14 @@ ReactDOM.render(
   <React.StrictMode>
     <App history={history} />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 ```
 
 The `App` component is also used in the `App.test.tsx` file. Here, include this different import:
 
 ```ts
-import { createMemoryHistory } from "history";
+import { createMemoryHistory } from 'history';
 ```
 
 Then use it to create an instance and pass it to the App component in the same way.
@@ -131,11 +131,11 @@ Then use it to create an instance and pass it to the App component in the same w
 Next we want to be able to access our pages at different urls. Update the content of the `Routes` component to the following:
 
 ```tsx
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { Polls } from "./polls/Polls";
-import { CreatePoll } from "./polls/create/CreatePoll";
-import { NotFound } from "./not-found/NotFound";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Polls } from './polls/Polls';
+import { CreatePoll } from './polls/create/CreatePoll';
+import { NotFound } from './not-found/NotFound';
 
 export const Routes: React.FC = function () {
   return (
@@ -172,7 +172,7 @@ The Shell provides the consistent navigation and framing across all pages of the
 Create a new file at `views/components/application/Shell.tsx` and create a new function component with the following contents:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
 export const Shell: React.FC = function () {
   return (
@@ -284,10 +284,10 @@ Add the following as a private component in `src\views\features\Routes.tsx`. Thi
 ```jsx
 const ErrorFallback: React.FC = function () {
   return (
-    <div>
+    <>
       <h1>:(</h1>
       <p>Unfortunately something went wrong. Please try again later.</p>
-    </div>
+    </>
   );
 };
 ```
