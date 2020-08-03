@@ -55,17 +55,17 @@ Switch to the "Connections" tab for the Application:
 
 - **Untick the "Google" option** under "Social", as we'll just use defined username/passwords for this demo.
 
-Disable sign ups, so that only accounts that you define explicitly can sign in. Navigate to the "Authentication - Database" option in the menu, and click on the item to configure it.
+Disable sign ups, so that only accounts that you define explicitly can sign in. Navigate to the "Connections - Database" option in the menu, and click on the item to configure it.
 
 - **Enable the "Disable Sign Ups"** option.
 
-Finally, create a user to sign in as. Click on the "User Management - Users" menu option, and click "Create User".
+Finally, create a user to sign in as. Click on the "Users & Roles - Users" menu option, and click "Create User".
 
 - Enter an email and password to use for signing in, and click "Create".
 
 ## React Configuration
 
-In order to use our new Auth0 application for signing in, we'll need tp pass a couple of configuration values for our site to use. The easiest way to pass configuration values is to use environment variables.
+In order to use our new Auth0 application for signing in, we'll need to pass a couple of configuration values for our site to use. The easiest way to pass configuration values is to use environment variables.
 
 Add the following to the `.env` file:
 
@@ -75,9 +75,9 @@ REACT_APP_AUTH_DOMAIN=
 REACT_APP_AUTH_CLIENT_ID=
 ```
 
-> Note that [the "REACT_APP\_" prefix is **required**](https://create-react-app.dev/docs/adding-custom-environment-variables).
+> Note that the ["REACT_APP\_" prefix](https://create-react-app.dev/docs/adding-custom-environment-variables) is **required**.
 
-The change does actually _do anything_ as far as our site goes, as all we've done is define a couple of empty variables. However it's often useful to use the `.env` file as a list of all the environment variables that the site can use.
+The change doesn't actually _do anything_ as far as our site goes, as all we've done is define a couple of empty variables. However it's often useful to use the `.env` file as a list of all the environment variables that the site can use.
 
 However, we do not want to have to manually configure these variables every time we start the application, and if we have other developers working with us, it would also be good if they did not have to manually configure their own systems either.
 
@@ -104,8 +104,8 @@ By committing `.env.development` to Git, other developers will automatically use
 Now that we're setting our environment variables, we can make them available in our code. Add a new file at `src\environment.ts` with the following content:
 
 ```ts
-export const AUTH_DOMAIN = process.env.REACT_APP_AUTH_DOMAIN ?? "";
-export const AUTH_CLIENT_ID = process.env.REACT_APP_AUTH_CLIENT_ID ?? "";
+export const AUTH_DOMAIN = process.env.REACT_APP_AUTH_DOMAIN ?? '';
+export const AUTH_CLIENT_ID = process.env.REACT_APP_AUTH_CLIENT_ID ?? '';
 ```
 
 These exported `const` values will be set to the environment variable values at build time.
@@ -125,13 +125,13 @@ But in order to make using it fit a little more nicely without our React applica
 In the new `security` file, add the following:
 
 ```ts
-import { Auth0Client } from "@auth0/auth0-spa-js";
-import { AUTH_CLIENT_ID, AUTH_DOMAIN } from "environment";
-import { History } from "history";
-import React from "react";
+import { Auth0Client } from '@auth0/auth0-spa-js';
+import { AUTH_CLIENT_ID, AUTH_DOMAIN } from 'environment';
+import { History } from 'history';
+import React from 'react';
 
-const DEFAULT_RETURN_PATHNAME = "/";
-const AUTHORISE_PATHNAME = "/authorise";
+const DEFAULT_RETURN_PATHNAME = '/';
+const AUTHORISE_PATHNAME = '/authorise';
 
 export type SignedInUser = {
   name: string;
@@ -242,15 +242,13 @@ Now that we've added these methods and properties, we should be able to trigger 
 Add the following after the `SecurityManager` class:
 
 ```ts
-const SecurityContext = React.createContext<SecurityManager | undefined>(
-  undefined
-);
+const SecurityContext = React.createContext<SecurityManager | undefined>(undefined);
 
 export const SecurityContextProvider = SecurityContext.Provider;
 
 export function useSecurity() {
   const value = React.useContext(SecurityContext);
-  if (!value) throw new Error("Security context has not been initialised");
+  if (!value) throw new Error('Security context has not been initialised');
   return value;
 }
 ```
@@ -320,6 +318,11 @@ There are a number of ways that you can prevent unauthenticated users from acces
 In the `src\views\features\Routes.tsx` file, add the following new private component:
 
 ```tsx
+...
+import { Switch, Redirect, Route, useLocation, RouteProps } from 'react-router-dom';
+import { useSecurity } from 'infrastructure/security';
+...
+
 const PrivateRoute: React.FC<RouteProps> = function ({ children, ...rest }) {
   const securityService = useSecurity();
 
@@ -329,12 +332,7 @@ const PrivateRoute: React.FC<RouteProps> = function ({ children, ...rest }) {
     }
   }, [securityService]);
 
-  return (
-    <Route
-      {...rest}
-      render={() => (securityService.isAuthenticated ? children : null)}
-    />
-  );
+  return <Route {...rest} render={() => (securityService.isAuthenticated ? children : null)} />;
 };
 ```
 
@@ -378,7 +376,7 @@ npm i react-responsive-modal
 We'll also import the default style sheet for this library in `index.tsx` - add the following to the imports:
 
 ```tsx
-import "react-responsive-modal/styles.css";
+import 'react-responsive-modal/styles.css';
 ```
 
 > We could entirely style the modal ourselves (the default stylesheet is not long), but the defaults are good enough for this application.
@@ -386,10 +384,10 @@ import "react-responsive-modal/styles.css";
 Now, create a new file at `views\components\application\UserInfoButton.tsx` with the following content:
 
 ```tsx
-import { useSecurity } from "infrastructure/security";
-import React from "react";
-import { Modal } from "react-responsive-modal";
-import styles from "./UserInfoButton.module.scss";
+import { useSecurity } from 'infrastructure/security';
+import React from 'react';
+import { Modal } from 'react-responsive-modal';
+import styles from './UserInfoButton.module.scss';
 
 export const UserInfoButton: React.FC = function () {
   const securityService = useSecurity();
@@ -407,23 +405,16 @@ export const UserInfoButton: React.FC = function () {
         classNames={{
           modal: styles.userModal,
           closeButton: styles.closeButton,
-        }}
-      >
+        }}>
         <div className={styles.userModalContent}>
           <img src={securityService.currentUser.picture} alt="User avatar" />
           <div className={styles.userLabel}>Signed in as:</div>
-          <strong className={styles.userName}>
-            {securityService.currentUser.name}
-          </strong>
+          <strong className={styles.userName}>{securityService.currentUser.name}</strong>
         </div>
       </Modal>
     </>
   ) : (
-    <button
-      type="button"
-      className={styles.signin}
-      onClick={() => securityService.signIn()}
-    >
+    <button type="button" className={styles.signin} onClick={() => securityService.signIn()}>
       Sign In
     </button>
   );
@@ -458,7 +449,7 @@ Then create a corresponding `UserInfoButton.module.scss` file with the following
 .userModal {
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-areas: "content close";
+  grid-template-areas: 'content close';
   gap: 8px;
   align-items: start;
 
@@ -469,8 +460,8 @@ Then create a corresponding `UserInfoButton.module.scss` file with the following
     grid-template-columns: 2fr 3fr;
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
-      "picture label"
-      "picture name";
+      'picture label'
+      'picture name';
     gap: 8px;
     justify-items: center;
     align-items: center;
@@ -500,7 +491,7 @@ Then create a corresponding `UserInfoButton.module.scss` file with the following
 
 This new component will show a "Sign In" button for unauthenticated users, and will show a button with the user's name for authenticated users. When the user's name is clicked, it shows a modal with the user's name and picture.
 
-To display the new component, add it to the end of our `Nav` list:
+To display the new component, add it to the end of our `Nav` list in `src\views\components\application\Shell.tsx`:
 
 ```tsx
 ...
@@ -534,7 +525,7 @@ Finally, we want signed in users to be able to sign out if they wish. To add thi
 Create a new file at `views\features\signed-out\SignedOut.tsx` with the following content:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
 export const SignedOut: React.FC = function () {
   return (
