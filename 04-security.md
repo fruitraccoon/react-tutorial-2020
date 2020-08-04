@@ -55,11 +55,11 @@ Switch to the "Connections" tab for the Application:
 
 - **Untick the "Google" option** under "Social", as we'll just use defined username/passwords for this demo.
 
-Disable sign ups, so that only accounts that you define explicitly can sign in. Navigate to the "Connections - Database" option in the menu, and click on the item to configure it.
+Disable sign ups, so that only accounts that you define explicitly can sign in. Navigate to the "Authentication - Database" option in the menu, and click on the item to configure it.
 
 - **Enable the "Disable Sign Ups"** option.
 
-Finally, create a user to sign in as. Click on the "Users & Roles - Users" menu option, and click "Create User".
+Finally, create a user to sign in as. Click on the "User Management - Users" menu option, and click "Create User".
 
 - Enter an email and password to use for signing in, and click "Create".
 
